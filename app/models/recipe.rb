@@ -2,6 +2,7 @@ class Recipe < ApplicationRecord
   belongs_to :user
   has_many :recipe_ingredients, -> { order(position: :asc) }, dependent: :destroy
   has_many :recipe_steps, -> { order(position: :asc) }, dependent: :destroy
+  has_many :bookmarks, dependent: :destroy
 
   accepts_nested_attributes_for :recipe_ingredients
   accepts_nested_attributes_for :recipe_steps
