@@ -54,7 +54,11 @@ module Api
       end
 
       def recipe_params
-        params.permit(:title, :description, :difficulty, :time_minutes, :servings, :cover_image_url, :status)
+        params.permit(
+          :title, :description, :difficulty, :time_minutes, :servings, :cover_image_url, :status,
+          recipe_ingredients_attributes: [:name, :quantity, :unit, :position],
+          recipe_steps_attributes: [:instruction, :position]
+        )
       end
 
       def recipe_json(r)
@@ -63,7 +67,13 @@ module Api
           difficulty: r.difficulty, time_minutes: r.time_minutes,
           servings: r.servings, cover_image_url: r.cover_image_url,
           status: r.status,
-          author: { id: r.user.id, name: r.user.name, handle: r.user.handle }
+          author: { id: r.user.id, name: r.user.name, handle: r.user.handle },
+          ingredients: r.recipe_ingredients.map { |i|
+            { id: i.id, name: i.name, quantity: i.quantity, unit: i.unit, position: i.position }
+          },
+          steps: r.recipe_steps.map { |s|
+            { id: s.id, instruction: s.instruction, position: s.position }
+          }
         }
       end
     end
