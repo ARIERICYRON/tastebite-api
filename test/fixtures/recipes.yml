@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  title: MyString
+  description: MyText
+  difficulty: MyString
+  time_minutes: 1
+  servings: 1
+  cover_image_url: MyString
+  status: MyString
+
+two:
+  user: two
+  title: MyString
+  description: MyText
+  difficulty: MyString
+  time_minutes: 1
+  servings: 1
+  cover_image_url: MyString
+  status: MyString
