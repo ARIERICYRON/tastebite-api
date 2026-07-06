@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_07_06_044956) do
+ActiveRecord::Schema[7.1].define(version: 2026_07_06_045953) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -32,6 +32,17 @@ ActiveRecord::Schema[7.1].define(version: 2026_07_06_044956) do
     t.index ["followed_id"], name: "index_follows_on_followed_id"
     t.index ["follower_id", "followed_id"], name: "index_follows_on_follower_id_and_followed_id", unique: true
     t.index ["follower_id"], name: "index_follows_on_follower_id"
+  end
+
+  create_table "posts", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "recipe_id", null: false
+    t.text "caption"
+    t.string "image_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["recipe_id"], name: "index_posts_on_recipe_id"
+    t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
   create_table "recipe_ingredients", force: :cascade do |t|
@@ -86,6 +97,8 @@ ActiveRecord::Schema[7.1].define(version: 2026_07_06_044956) do
   add_foreign_key "bookmarks", "users"
   add_foreign_key "follows", "users", column: "followed_id"
   add_foreign_key "follows", "users", column: "follower_id"
+  add_foreign_key "posts", "recipes"
+  add_foreign_key "posts", "users"
   add_foreign_key "recipe_ingredients", "recipes"
   add_foreign_key "recipe_steps", "recipes"
   add_foreign_key "recipes", "users"
