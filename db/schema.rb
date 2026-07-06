@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_07_06_050455) do
+ActiveRecord::Schema[7.1].define(version: 2026_07_06_051813) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -52,6 +52,25 @@ ActiveRecord::Schema[7.1].define(version: 2026_07_06_050455) do
     t.index ["post_id"], name: "index_likes_on_post_id"
     t.index ["user_id", "post_id"], name: "index_likes_on_user_id_and_post_id", unique: true
     t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
+  create_table "meal_plan_entries", force: :cascade do |t|
+    t.bigint "meal_plan_id", null: false
+    t.bigint "recipe_id", null: false
+    t.date "date"
+    t.string "meal_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["meal_plan_id"], name: "index_meal_plan_entries_on_meal_plan_id"
+    t.index ["recipe_id"], name: "index_meal_plan_entries_on_recipe_id"
+  end
+
+  create_table "meal_plans", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.date "week_start_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_meal_plans_on_user_id"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -121,6 +140,9 @@ ActiveRecord::Schema[7.1].define(version: 2026_07_06_050455) do
   add_foreign_key "follows", "users", column: "follower_id"
   add_foreign_key "likes", "posts"
   add_foreign_key "likes", "users"
+  add_foreign_key "meal_plan_entries", "meal_plans"
+  add_foreign_key "meal_plan_entries", "recipes"
+  add_foreign_key "meal_plans", "users"
   add_foreign_key "posts", "recipes"
   add_foreign_key "posts", "users"
   add_foreign_key "recipe_ingredients", "recipes"

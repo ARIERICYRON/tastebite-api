@@ -9,6 +9,11 @@ Rails.application.routes.draw do
       get "search", to: "discovery#search"
       get "explore/trending", to: "discovery#trending"
 
+      get "meal-plans", to: "meal_plans#show"
+      post "meal-plans/entries", to: "meal_plans#add_entry"
+      delete "meal-plans/entries/:id", to: "meal_plans#remove_entry"
+      get "meal-plans/shopping-list", to: "meal_plans#shopping_list"
+
       post "recipes/:id/save", to: "bookmarks#create"
       delete "recipes/:id/save", to: "bookmarks#destroy"
       resources :recipes
