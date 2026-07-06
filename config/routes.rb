@@ -6,6 +6,9 @@ Rails.application.routes.draw do
       get "me", to: "auth#me"
       get "me/saved", to: "bookmarks#index"
 
+      get "search", to: "discovery#search"
+      get "explore/trending", to: "discovery#trending"
+
       post "recipes/:id/save", to: "bookmarks#create"
       delete "recipes/:id/save", to: "bookmarks#destroy"
       resources :recipes
