@@ -9,6 +9,9 @@ Rails.application.routes.draw do
       get "search", to: "discovery#search"
       get "explore/trending", to: "discovery#trending"
 
+      get "notifications", to: "notifications#index"
+      post "notifications/read", to: "notifications#read"
+
       get "meal-plans", to: "meal_plans#show"
       post "meal-plans/entries", to: "meal_plans#add_entry"
       delete "meal-plans/entries/:id", to: "meal_plans#remove_entry"

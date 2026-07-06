@@ -4,19 +4,18 @@ module Api
       class CommentsController < ApplicationController
         before_action :authenticate!, only: [:create]
 
-        # GET /api/v1/posts/:post_id/comments
         def index
           post = Post.find_by(id: params[:post_id])
           return render json: { error: "Post not found" }, status: :not_found unless post
           render json: post.comments.map { |c| comment_json(c) }
         end
 
-        # POST /api/v1/posts/:post_id/comments
         def create
           post = Post.find_by(id: params[:post_id])
           return render json: { error: "Post not found" }, status: :not_found unless post
           comment = post.comments.new(body: params[:body], user: current_user)
           if comment.save
+            Notification.notify(recipient: post.user, actor: current_user, action: "comment", notifiable: post)
             render json: comment_json(comment), status: :created
           else
             render json: { errors: comment.errors.full_messages }, status: :unprocessable_entity
