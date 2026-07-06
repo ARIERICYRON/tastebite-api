@@ -10,7 +10,13 @@ Rails.application.routes.draw do
       delete "recipes/:id/save", to: "bookmarks#destroy"
       resources :recipes
 
-      resources :posts, only: [:index, :show, :create, :destroy]
+      resources :posts, only: [:index, :show, :create, :destroy] do
+        member do
+          post "like", to: "likes#create"
+          delete "like", to: "likes#destroy"
+        end
+        resources :comments, only: [:index, :create], module: :posts
+      end
 
       get "users/:handle", to: "users#show"
       post "users/:handle/follow", to: "follows#create"
