@@ -4,6 +4,7 @@ Rails.application.routes.draw do
       post "auth/signup", to: "auth#signup"
       post "auth/login", to: "auth#login"
       get "me", to: "auth#me"
+      patch "me/account", to: "auth#update_account"
       get "me/saved", to: "bookmarks#index"
 
       get "search", to: "discovery#search"
