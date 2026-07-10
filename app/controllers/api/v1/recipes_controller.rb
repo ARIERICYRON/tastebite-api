@@ -4,18 +4,15 @@ module Api
       before_action :authenticate!, only: [:create, :update, :destroy]
       before_action :set_recipe, only: [:show, :update, :destroy]
 
-      # GET /api/v1/recipes  — list all recipes
       def index
         recipes = Recipe.order(created_at: :desc)
         render json: recipes.map { |r| recipe_json(r) }
       end
 
-      # GET /api/v1/recipes/:id  — one recipe
       def show
         render json: recipe_json(@recipe)
       end
 
-      # POST /api/v1/recipes  — create (must be logged in)
       def create
         recipe = current_user.recipes.new(recipe_params)
         if recipe.save
@@ -25,7 +22,6 @@ module Api
         end
       end
 
-      # PATCH /api/v1/recipes/:id  — update (owner only)
       def update
         return forbid unless @recipe.user_id == current_user.id
         if @recipe.update(recipe_params)
@@ -35,7 +31,6 @@ module Api
         end
       end
 
-      # DELETE /api/v1/recipes/:id  — delete (owner only)
       def destroy
         return forbid unless @recipe.user_id == current_user.id
         @recipe.destroy
@@ -55,7 +50,7 @@ module Api
 
       def recipe_params
         params.permit(
-          :title, :description, :difficulty, :time_minutes, :servings, :cover_image_url, :status,
+          :title, :description, :difficulty, :time_minutes, :servings, :cover_image_url, :status, :cover_image,
           recipe_ingredients_attributes: [:name, :quantity, :unit, :position],
           recipe_steps_attributes: [:instruction, :position]
         )
@@ -65,7 +60,8 @@ module Api
         {
           id: r.id, title: r.title, description: r.description,
           difficulty: r.difficulty, time_minutes: r.time_minutes,
-          servings: r.servings, cover_image_url: r.cover_image_url,
+          servings: r.servings,
+          cover_image_url: r.cover_image.attached? ? url_for(r.cover_image) : r.cover_image_url,
           status: r.status,
           author: { id: r.user.id, name: r.user.name, handle: r.user.handle },
           ingredients: r.recipe_ingredients.map { |i|

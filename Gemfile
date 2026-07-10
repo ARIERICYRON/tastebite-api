@@ -55,3 +55,5 @@ gem "rspec-rails", "~> 7.1", groups: [:development, :test]
 gem "factory_bot_rails", "~> 6.5", groups: [:development, :test]
 
 gem "rack-cors", "~> 3.0"
+
+gem "aws-sdk-s3", "~> 1.227"
