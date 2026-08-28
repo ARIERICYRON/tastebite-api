@@ -65,7 +65,7 @@ module Api
           entries: plan.meal_plan_entries.includes(:recipe).order(:date, :meal_type).map { |e|
             {
               id: e.id, date: e.date, meal_type: e.meal_type,
-              recipe: { id: e.recipe.id, title: e.recipe.title, time_minutes: e.recipe.time_minutes }
+              recipe: { id: e.recipe.id, title: e.recipe.title, time_minutes: e.recipe.time_minutes, cover_image_url: (e.recipe.cover_image.attached? ? url_for(e.recipe.cover_image) : e.recipe.cover_image_url) }
             }
           }
         }

@@ -33,6 +33,7 @@ module Api
         {
           id: r.id, title: r.title, difficulty: r.difficulty,
           time_minutes: r.time_minutes, saves_count: r.bookmarks.count,
+          cover_image_url: r.cover_image.attached? ? url_for(r.cover_image) : r.cover_image_url,
           author: { name: r.user.name, handle: r.user.handle }
         }
       end

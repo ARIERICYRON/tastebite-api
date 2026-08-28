@@ -41,11 +41,11 @@ module Api
       end
 
       def account_params
-        params.permit(:name, :handle, :bio)
+        params.permit(:name, :handle, :bio, :avatar)
       end
 
       def user_json(user)
-        { id: user.id, name: user.name, handle: user.handle, email: user.email, bio: user.bio }
+        { id: user.id, name: user.name, handle: user.handle, email: user.email, bio: user.bio, avatar_url: (user.avatar.attached? ? url_for(user.avatar) : nil) }
       end
     end
   end

@@ -34,7 +34,7 @@ module Api
       end
 
       def user_stub(u)
-        { id: u.id, name: u.name, handle: u.handle }
+        { id: u.id, name: u.name, handle: u.handle, avatar_url: (u.avatar.attached? ? url_for(u.avatar) : nil) }
       end
     end
   end
