@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_07_10_124932) do
+ActiveRecord::Schema[7.1].define(version: 2026_08_29_032844) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -137,6 +137,17 @@ ActiveRecord::Schema[7.1].define(version: 2026_07_10_124932) do
     t.index ["recipe_id"], name: "index_recipe_ingredients_on_recipe_id"
   end
 
+  create_table "recipe_reviews", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "recipe_id", null: false
+    t.integer "rating"
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["recipe_id"], name: "index_recipe_reviews_on_recipe_id"
+    t.index ["user_id"], name: "index_recipe_reviews_on_user_id"
+  end
+
   create_table "recipe_steps", force: :cascade do |t|
     t.bigint "recipe_id", null: false
     t.text "instruction"
@@ -158,6 +169,13 @@ ActiveRecord::Schema[7.1].define(version: 2026_07_10_124932) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "calories"
+    t.integer "prep_minutes"
+    t.integer "cook_minutes"
+    t.integer "protein_g"
+    t.integer "carbs_g"
+    t.integer "fat_g"
+    t.integer "fiber_g"
+    t.text "notes"
     t.index ["user_id"], name: "index_recipes_on_user_id"
   end
 
@@ -193,6 +211,8 @@ ActiveRecord::Schema[7.1].define(version: 2026_07_10_124932) do
   add_foreign_key "posts", "recipes"
   add_foreign_key "posts", "users"
   add_foreign_key "recipe_ingredients", "recipes"
+  add_foreign_key "recipe_reviews", "recipes"
+  add_foreign_key "recipe_reviews", "users"
   add_foreign_key "recipe_steps", "recipes"
   add_foreign_key "recipes", "users"
 end

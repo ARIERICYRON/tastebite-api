@@ -20,7 +20,9 @@ Rails.application.routes.draw do
 
       post "recipes/:id/save", to: "bookmarks#create"
       delete "recipes/:id/save", to: "bookmarks#destroy"
-      resources :recipes
+      resources :recipes do
+        resources :reviews, only: [:index, :create], module: :recipes
+      end
 
       resources :posts, only: [:index, :show, :create, :destroy] do
         member do
