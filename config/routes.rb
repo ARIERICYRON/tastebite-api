@@ -21,6 +21,10 @@ Rails.application.routes.draw do
       get "notifications", to: "notifications#index"
       post "notifications/read", to: "notifications#read"
 
+      patch "meal-plans", to: "meal_plans#update"
+      patch "meal-plans/entries/:id", to: "meal_plans#update_entry"
+      post "meal-plans/shopping-list/import-checks", to: "meal_plans#import_checks"
+      patch "meal-plans/shopping-list/items", to: "meal_plans#update_item"
       get "meal-plans", to: "meal_plans#show"
       post "meal-plans/entries", to: "meal_plans#add_entry"
       delete "meal-plans/entries/:id", to: "meal_plans#remove_entry"

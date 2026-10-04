@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_10_03_000000) do
+ActiveRecord::Schema[7.1].define(version: 2026_10_04_000000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -89,6 +89,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_10_03_000000) do
     t.string "meal_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "servings", precision: 10, scale: 2
     t.index ["meal_plan_id"], name: "index_meal_plan_entries_on_meal_plan_id"
     t.index ["recipe_id"], name: "index_meal_plan_entries_on_recipe_id"
   end
@@ -98,6 +99,8 @@ ActiveRecord::Schema[7.1].define(version: 2026_10_03_000000) do
     t.date "week_start_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "weekly_budget", precision: 12, scale: 2
+    t.string "location", default: "Toronto", null: false
     t.index ["user_id"], name: "index_meal_plans_on_user_id"
   end
 
@@ -179,6 +182,20 @@ ActiveRecord::Schema[7.1].define(version: 2026_10_03_000000) do
     t.index ["user_id"], name: "index_recipes_on_user_id"
   end
 
+  create_table "shopping_items", force: :cascade do |t|
+    t.bigint "meal_plan_id", null: false
+    t.string "ingredient_key", null: false
+    t.boolean "checked", default: false, null: false
+    t.boolean "pantry", default: false, null: false
+    t.decimal "package_price", precision: 12, scale: 2
+    t.decimal "package_size", precision: 16, scale: 4
+    t.string "package_unit"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["meal_plan_id", "ingredient_key"], name: "index_shopping_items_on_meal_plan_id_and_ingredient_key", unique: true
+    t.index ["meal_plan_id"], name: "index_shopping_items_on_meal_plan_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email"
     t.string "name"
@@ -216,4 +233,5 @@ ActiveRecord::Schema[7.1].define(version: 2026_10_03_000000) do
   add_foreign_key "recipe_reviews", "users"
   add_foreign_key "recipe_steps", "recipes"
   add_foreign_key "recipes", "users"
+  add_foreign_key "shopping_items", "meal_plans"
 end
