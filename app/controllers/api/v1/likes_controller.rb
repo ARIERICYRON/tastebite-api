@@ -6,8 +6,8 @@ module Api
       def create
         post = Post.find_by(id: params[:id])
         return render json: { error: "Post not found" }, status: :not_found unless post
-        current_user.likes.find_or_create_by(post: post)
-        Notification.notify(recipient: post.user, actor: current_user, action: "like", notifiable: post)
+        like = current_user.likes.find_or_create_by!(post: post)
+        Notification.notify(recipient: post.user, actor: current_user, action: "like", notifiable: post) if like.previously_new_record?
         render json: { liked: true, post_id: post.id, likes_count: post.likes.count }, status: :created
       end
 

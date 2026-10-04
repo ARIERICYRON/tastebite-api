@@ -1,9 +1,10 @@
 module Api
   module V1
     class DiscoveryController < ApplicationController
+      include RecipeSerialization
       # GET /api/v1/search?q=ramen&difficulty=Easy&max_time=30
       def search
-        recipes = Recipe.all
+        recipes = Recipe.published
 
         if params[:q].present?
           term = "%#{params[:q].downcase}%"
@@ -14,12 +15,13 @@ module Api
         recipes = recipes.where("time_minutes <= ?", params[:max_time]) if params[:max_time].present?
 
         recipes = recipes.order(created_at: :desc)
-        render json: { count: recipes.count, results: recipes.map { |r| card(r) } }
+        users = params[:q].present? ? User.where("LOWER(name) LIKE ? OR LOWER(handle) LIKE ?", term, term).limit(20) : []
+        render json: { count: recipes.count, results: recipes.map { |r| card(r) }, users: users.map { |u| { id: u.id, name: u.name, handle: u.handle } } }
       end
 
       # GET /api/v1/explore/trending
       def trending
-        recipes = Recipe
+        recipes = Recipe.published
           .left_joins(:bookmarks)
           .group("recipes.id")
           .order("COUNT(bookmarks.id) DESC, recipes.created_at DESC")
@@ -30,12 +32,7 @@ module Api
       private
 
       def card(r)
-        {
-          id: r.id, title: r.title, difficulty: r.difficulty,
-          time_minutes: r.time_minutes, saves_count: r.bookmarks.count,
-          cover_image_url: r.cover_image.attached? ? url_for(r.cover_image) : r.cover_image_url,
-          author: { name: r.user.name, handle: r.user.handle }
-        }
+        recipe_json(r)
       end
     end
   end

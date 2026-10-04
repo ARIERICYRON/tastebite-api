@@ -2,7 +2,7 @@ module Api
   module V1
     module Recipes
       class ReviewsController < ApplicationController
-        before_action :authenticate!, only: [:create]
+        before_action :authenticate!, only: [:create, :destroy]
         before_action :set_recipe
 
         def index
@@ -22,10 +22,18 @@ module Api
           end
         end
 
+        def destroy
+          review = @recipe.recipe_reviews.find_by(id: params[:id])
+          return render json: { error: "Review not found" }, status: :not_found unless review
+          return render json: { error: "Not your review" }, status: :forbidden unless review.user_id == current_user.id
+          review.destroy!
+          head :no_content
+        end
+
         private
 
         def set_recipe
-          @recipe = Recipe.find_by(id: params[:recipe_id])
+          @recipe = Recipe.visible_to(current_user).find_by(id: params[:recipe_id])
           render json: { error: "Recipe not found" }, status: :not_found unless @recipe
         end
 

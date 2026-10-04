@@ -1,8 +1,16 @@
 Rails.application.routes.draw do
+  # Browser tests must prove the running server uses their isolated database.
+  if Rails.env.test?
+    get "/__test__/database", to: ->(_env) {
+      [200, { "Content-Type" => "application/json" }, [{ database: ActiveRecord::Base.connection_db_config.database }.to_json]]
+    }
+  end
   namespace :api do
     namespace :v1 do
       post "auth/signup", to: "auth#signup"
       post "auth/login", to: "auth#login"
+      post "auth/forgot-password", to: "auth#forgot_password"
+      post "auth/reset-password", to: "auth#reset_password"
       get "me", to: "auth#me"
       patch "me/account", to: "auth#update_account"
       get "me/saved", to: "bookmarks#index"
@@ -21,7 +29,7 @@ Rails.application.routes.draw do
       post "recipes/:id/save", to: "bookmarks#create"
       delete "recipes/:id/save", to: "bookmarks#destroy"
       resources :recipes do
-        resources :reviews, only: [:index, :create], module: :recipes
+        resources :reviews, only: [:index, :create, :destroy], module: :recipes
       end
 
       resources :posts, only: [:index, :show, :create, :destroy] do

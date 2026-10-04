@@ -13,11 +13,43 @@ module Api
       end
 
       def login
-        user = User.find_by(email: params[:email].to_s.downcase)
+        user = User.where("LOWER(email) = ?", params[:email].to_s.strip.downcase).first
         if user&.authenticate(params[:password])
           render json: { token: encode_token(user.id), user: user_json(user) }
         else
           render json: { error: "Invalid email or password" }, status: :unauthorized
+        end
+      end
+
+      def forgot_password
+        if Rails.env.production? && ENV["SMTP_ADDRESS"].blank?
+          return render json: { error: "Password recovery email delivery is not configured yet." }, status: :service_unavailable
+        end
+        # Never disclose whether an email belongs to an account.
+        user = User.where("LOWER(email) = ?", params[:email].to_s.strip.downcase).first
+        PasswordMailer.reset(user).deliver_now if user
+        render json: { message: "If an account exists for that email, a reset link has been sent." }
+      end
+
+      def reset_password
+        user = User.find_by_token_for(:password_reset, params[:token].to_s)
+        return render json: { error: "This reset link is invalid or expired." }, status: :unprocessable_entity unless user
+        user.with_lock do
+          # Recheck under the lock so concurrent submissions cannot reuse a token.
+          unless User.find_by_token_for(:password_reset, params[:token].to_s)
+            return render json: { error: "This reset link is invalid or expired." }, status: :unprocessable_entity
+          end
+          if params[:password].blank?
+            return render json: { errors: ["Password can't be blank"] }, status: :unprocessable_entity
+          end
+          user.password = params[:password]
+          user.password_confirmation = params[:password_confirmation]
+          user.token_version += 1
+          if user.save
+            render json: { message: "Password updated. Please log in." }
+          else
+            render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
+          end
         end
       end
 

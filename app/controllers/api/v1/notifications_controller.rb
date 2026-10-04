@@ -21,11 +21,16 @@ module Api
       private
 
       def note_json(n)
+        target_exists = case n.notifiable_type
+                        when "Recipe" then Recipe.visible_to(current_user).exists?(id: n.notifiable_id)
+                        when "Post" then Post.exists?(id: n.notifiable_id)
+                        else false
+                        end
         {
           id: n.id, action: n.action, read: n.read_at.present?,
           created_at: n.created_at,
           actor: { id: n.actor.id, name: n.actor.name, handle: n.actor.handle },
-          target_type: n.notifiable_type, target_id: n.notifiable_id
+          target_type: target_exists ? n.notifiable_type : nil, target_id: target_exists ? n.notifiable_id : nil
         }
       end
     end

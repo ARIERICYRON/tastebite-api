@@ -6,6 +6,7 @@ module Api
 
       def index
         posts = Post.order(created_at: :desc)
+        posts = posts.where(user_id: @maybe_user.following.select(:id)) if params[:following] == "true" && @maybe_user
         render json: posts.map { |p| post_json(p) }
       end
 
@@ -16,6 +17,9 @@ module Api
       end
 
       def create
+        if params[:recipe_id].present? && !Recipe.published.exists?(id: params[:recipe_id])
+          return render json: { error: "Recipe not found" }, status: :not_found
+        end
         post = current_user.posts.new(post_params)
         if post.save
           render json: post_json(post), status: :created
@@ -51,7 +55,7 @@ module Api
           id: p.id, caption: p.caption, image_url: p.image_url,
           created_at: p.created_at,
           author: { id: p.user.id, name: p.user.name, handle: p.user.handle },
-          recipe: p.recipe && { id: p.recipe.id, title: p.recipe.title },
+          recipe: p.recipe && p.recipe.status != "draft" && { id: p.recipe.id, title: p.recipe.title },
           likes_count: p.likes.count,
           comments_count: p.comments.count,
           liked: viewer ? p.likes.exists?(user_id: viewer.id) : false

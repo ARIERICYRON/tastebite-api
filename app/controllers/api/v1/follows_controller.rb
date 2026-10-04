@@ -8,8 +8,8 @@ module Api
         if @target.id == current_user.id
           return render json: { error: "You can't follow yourself" }, status: :unprocessable_entity
         end
-        current_user.active_follows.find_or_create_by(followed: @target)
-        Notification.notify(recipient: @target, actor: current_user, action: "follow")
+        follow = current_user.active_follows.find_or_create_by!(followed: @target)
+        Notification.notify(recipient: @target, actor: current_user, action: "follow") if follow.previously_new_record?
         render json: { following: true, handle: @target.handle }, status: :created
       end
 
