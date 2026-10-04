@@ -15,7 +15,7 @@ module Api
           review.rating = params[:rating]
           if review.save
             Notification.notify(recipient: @recipe.user, actor: current_user,
-                                action: "review", notifiable: @recipe)
+                                action: "review", notifiable: @recipe) if @recipe.user
             render json: review_json(review), status: :created
           else
             render json: { errors: review.errors.full_messages }, status: :unprocessable_entity

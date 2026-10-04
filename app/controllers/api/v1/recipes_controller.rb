@@ -6,7 +6,7 @@ module Api
       before_action :set_recipe, only: [:show, :update, :destroy]
 
       def index
-        recipes = Recipe.visible_to(current_user).order(created_at: :desc)
+        recipes = Recipe.community.visible_to(current_user).order(created_at: :desc)
         render json: recipes.map { |r| recipe_json(r) }
       end
 
@@ -24,7 +24,7 @@ module Api
       end
 
       def update
-        return forbid unless @recipe.user_id == current_user.id
+        return forbid if @recipe.provider_recipe? || @recipe.user_id != current_user.id
         if @recipe.update(recipe_params)
           render json: recipe_json(@recipe)
         else
@@ -33,7 +33,7 @@ module Api
       end
 
       def destroy
-        return forbid unless @recipe.user_id == current_user.id
+        return forbid if @recipe.provider_recipe? || @recipe.user_id != current_user.id
         @recipe.destroy
         head :no_content
       end

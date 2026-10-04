@@ -13,6 +13,12 @@ module Api
         plan = find_or_create_plan
         plan.with_lock do
           entry = plan.meal_plan_entries.find_or_initialize_by(date: params[:date], meal_type: params[:meal_type])
+          if entry.persisted? && params[:replace] == false
+            return render json: { error: "That meal slot is occupied. Choose another slot or change the meal in the planner." }, status: :conflict
+          end
+          changed_recipe = entry.recipe_id != params[:recipe_id].to_i
+          entry.base_servings = nil if changed_recipe
+          entry.base_servings = params[:base_servings] if params.key?(:base_servings)
           entry.assign_attributes(recipe_id: params[:recipe_id], date: params[:date], meal_type: params[:meal_type])
           entry.servings = params[:servings] if params.key?(:servings)
           entry.servings = nil if entry.recipe_id_changed? && !params.key?(:servings)
@@ -81,7 +87,7 @@ module Api
       def update_entry
         entry = MealPlanEntry.joins(:meal_plan).where(meal_plans: { user_id: current_user.id }).find_by(id: params[:id])
         return render json: { error: "Entry not found" }, status: :not_found unless entry
-        if entry.update(params.permit(:servings))
+        if entry.update(params.permit(:servings, :base_servings))
           render json: plan_json(entry.meal_plan)
         else
           render json: { errors: entry.errors.full_messages }, status: :unprocessable_entity
@@ -106,8 +112,8 @@ module Api
           week_start_date: plan.week_start_date, weekly_budget: plan.weekly_budget&.to_f, location: plan.location, currency: "CAD",
           entries: plan.meal_plan_entries.includes(:recipe).order(:date, :meal_type).map { |e|
             {
-              id: e.id, date: e.date, meal_type: e.meal_type, servings: e.planned_servings&.to_f,
-              recipe: e.recipe.status == "draft" && e.recipe.user_id != current_user.id ? { id: nil, title: "Recipe unavailable" } : { id: e.recipe.id, title: e.recipe.title, time_minutes: e.recipe.time_minutes, cover_image_url: (e.recipe.cover_image.attached? ? url_for(e.recipe.cover_image) : e.recipe.cover_image_url) }
+              id: e.id, date: e.date, meal_type: e.meal_type, servings: e.planned_servings&.to_f, base_servings: e.base_servings&.to_f,
+              recipe: e.recipe.status == "draft" && e.recipe.user_id != current_user.id ? { id: nil, title: "Recipe unavailable" } : { id: e.recipe.id, provider: e.recipe.provider, provider_id: e.recipe.provider_id, title: e.recipe.title, time_minutes: e.recipe.time_minutes, cover_image_url: (e.recipe.cover_image.attached? ? url_for(e.recipe.cover_image) : e.recipe.cover_image_url) }
             }
           }
         }

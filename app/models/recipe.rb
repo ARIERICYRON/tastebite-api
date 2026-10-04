@@ -1,5 +1,16 @@
 class Recipe < ApplicationRecord
-  belongs_to :user
+  belongs_to :user, optional: true
+  scope :community, -> { where(provider: nil) }
+  validates :user, presence: true, unless: :provider_recipe?
+  validates :provider, inclusion: { in: ["themealdb"] }, allow_nil: true
+  validates :provider_id, presence: true, if: :provider_recipe?
+  validate do
+    errors.add(:user, "cannot own shared provider content") if provider_recipe? && user_id.present?
+  end
+
+  def provider_recipe?
+    provider.present?
+  end
   has_many :posts, dependent: :nullify
   has_many :meal_plan_entries, dependent: :destroy
   scope :published, -> { where("recipes.status IS DISTINCT FROM 'draft'") }

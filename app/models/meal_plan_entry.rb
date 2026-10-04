@@ -2,9 +2,16 @@ class MealPlanEntry < ApplicationRecord
   belongs_to :meal_plan
   belongs_to :recipe
   before_validation do
-    self.servings ||= recipe.servings if recipe && recipe.servings.to_i.positive?
+    if recipe&.provider_recipe?
+      self.servings ||= base_servings
+    elsif recipe && recipe.servings.to_i.positive?
+      self.servings ||= recipe.servings
+    end
   end
   validates :servings, numericality: { greater_than: 0, less_than_or_equal_to: 10_000 }, allow_nil: true
+
+  validates :base_servings, numericality: { greater_than: 0, less_than_or_equal_to: 10_000 }, allow_nil: true
+  validates :base_servings, presence: { message: "must be confirmed before planning or scaling a provider recipe" }, if: -> { recipe&.provider_recipe? }
 
   def planned_servings
     servings || (recipe.servings if recipe.servings.to_i.positive?)

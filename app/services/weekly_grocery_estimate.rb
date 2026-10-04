@@ -13,22 +13,22 @@ class WeeklyGroceryEstimate
         warnings << "A planned recipe is unavailable; its ingredients cannot be included."
         next
       end
-      baseline = recipe.servings.to_i
+      baseline = recipe.provider_recipe? ? entry.base_servings.to_d : recipe.servings.to_i
       can_scale = !entry.planned_servings || baseline.positive?
-      factor = entry.planned_servings && baseline.positive? ? entry.planned_servings.to_r / baseline : 1.to_r
+      factor = entry.planned_servings && baseline.positive? ? entry.planned_servings.to_r / baseline.to_r : 1.to_r
       warnings << "#{recipe.title}: recipe servings are missing; planned servings cannot be calculated." unless can_scale
       recipe.recipe_ingredients.each do |ingredient|
         key = GroceryQuantity.key(ingredient.name)
         next if key.blank?
         item = grouped[key] ||= { key: key, name: ingredient.name, totals: Hash.new(0.to_r), amounts: [], uncalculated: [] }
-        original = [ingredient.quantity, ingredient.unit].compact.join(" ").strip
+        original = ingredient.original_measurement || [ingredient.quantity, ingredient.unit].compact.join(" ").strip
         quantity = GroceryQuantity.parse(ingredient.quantity)
         unit = GroceryQuantity.unit(ingredient.unit)
-        if quantity && unit && can_scale
+        if quantity && unit && can_scale && !ingredient.quantity_issue
           item[:totals][unit[0]] += quantity * factor * unit[1]
           item[:amounts] << original
         else
-          reason = !can_scale ? "Missing recipe servings" : !quantity ? "Unrecognized quantity" : "Unrecognized unit"
+          reason = ingredient.quantity_issue || (!can_scale ? "Missing recipe servings" : !quantity ? "Unrecognized quantity" : "Unrecognized unit")
           item[:uncalculated] << { amount: original, reason: reason, recipe_id: recipe.id, planned_servings: entry.planned_servings&.to_f }
           item[:amounts] << original
         end

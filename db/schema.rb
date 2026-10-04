@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_10_04_000000) do
+ActiveRecord::Schema[7.1].define(version: 2026_10_04_010000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -90,6 +90,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_10_04_000000) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.decimal "servings", precision: 10, scale: 2
+    t.decimal "base_servings", precision: 10, scale: 2
     t.index ["meal_plan_id"], name: "index_meal_plan_entries_on_meal_plan_id"
     t.index ["recipe_id"], name: "index_meal_plan_entries_on_recipe_id"
   end
@@ -137,6 +138,8 @@ ActiveRecord::Schema[7.1].define(version: 2026_10_04_000000) do
     t.integer "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "original_measurement"
+    t.string "quantity_issue"
     t.index ["recipe_id"], name: "index_recipe_ingredients_on_recipe_id"
   end
 
@@ -161,7 +164,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_10_04_000000) do
   end
 
   create_table "recipes", force: :cascade do |t|
-    t.bigint "user_id", null: false
+    t.bigint "user_id"
     t.string "title"
     t.text "description"
     t.string "difficulty"
@@ -179,7 +182,12 @@ ActiveRecord::Schema[7.1].define(version: 2026_10_04_000000) do
     t.integer "fat_g"
     t.integer "fiber_g"
     t.text "notes"
+    t.string "provider"
+    t.string "provider_id"
+    t.jsonb "provider_metadata", default: {}, null: false
+    t.index ["provider", "provider_id"], name: "index_recipes_on_provider_and_provider_id", unique: true, where: "(provider IS NOT NULL)"
     t.index ["user_id"], name: "index_recipes_on_user_id"
+    t.check_constraint "provider IS NULL AND provider_id IS NULL AND user_id IS NOT NULL OR provider::text = 'themealdb'::text AND provider_id IS NOT NULL AND user_id IS NULL", name: "recipes_authorship_or_provider"
   end
 
   create_table "shopping_items", force: :cascade do |t|

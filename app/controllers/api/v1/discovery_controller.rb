@@ -4,7 +4,7 @@ module Api
       include RecipeSerialization
       # GET /api/v1/search?q=ramen&difficulty=Easy&max_time=30
       def search
-        recipes = Recipe.published
+        recipes = Recipe.community.published
 
         if params[:q].present?
           term = "%#{params[:q].downcase}%"
@@ -21,7 +21,7 @@ module Api
 
       # GET /api/v1/explore/trending
       def trending
-        recipes = Recipe.published
+        recipes = Recipe.community.published
           .left_joins(:bookmarks)
           .group("recipes.id")
           .order("COUNT(bookmarks.id) DESC, recipes.created_at DESC")

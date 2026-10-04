@@ -15,6 +15,11 @@ Rails.application.routes.draw do
       patch "me/account", to: "auth#update_account"
       get "me/saved", to: "bookmarks#index"
 
+      get "discover/catalogs", to: "provider_discovery#catalogs"
+      get "discover/recipes", to: "provider_discovery#index"
+      get "discover/recipes/:id", to: "provider_discovery#show"
+      post "discover/recipes/:id/import", to: "provider_discovery#import"
+
       get "search", to: "discovery#search"
       get "explore/trending", to: "discovery#trending"
 
