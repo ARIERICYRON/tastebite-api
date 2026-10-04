@@ -76,13 +76,15 @@ class WeeklyGroceryEstimate
     issues << "Missing manual price" if price.nil?
     issues << "Enter a package size and unit" unless size && package_unit
     issues << "Incompatible ingredient and package units" if package_unit && item[:totals].keys.any? { |dimension| dimension != package_unit[0] }
-    can_cost = issues.empty? && item[:totals].size == 1
-    if can_cost
+    can_quantify = (issues - ["Missing manual price"]).empty? && item[:totals].size == 1
+    if can_quantify
       needed = item[:totals].values.first
       package_quantity = size.to_r * package_unit[1]
       packages = (needed / package_quantity).ceil
-      use_cost = money(price * BigDecimal(needed.numerator.to_s) / needed.denominator / (BigDecimal(package_quantity.numerator.to_s) / package_quantity.denominator))
-      purchase_cost = money(price * packages)
+      if price
+        use_cost = money(price * BigDecimal(needed.numerator.to_s) / needed.denominator / (BigDecimal(package_quantity.numerator.to_s) / package_quantity.denominator))
+        purchase_cost = money(price * packages)
+      end
     end
     {
       key: item[:key], name: item[:name], amounts: item[:amounts],

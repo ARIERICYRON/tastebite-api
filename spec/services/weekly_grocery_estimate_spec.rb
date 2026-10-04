@@ -50,6 +50,13 @@ RSpec.describe WeeklyGroceryEstimate do
     expect(GroceryQuantity.display(0.to_r)).to eq("0")
   end
 
+  it "calculates packages from quantity and size even when the manual price is missing" do
+    add("600", "g")
+    price(amount: nil)
+    expect(estimate[:items].first).to include(packages_to_buy: 2, purchase_cost: nil, ingredient_use_cost: nil, missing_price: true)
+    expect(estimate).to include(complete: false, estimated_total: nil, missing_prices: ["Flour"])
+  end
+
   it "merges Canadian cups and spoons with litres" do
     add("1/2", "cup", name: "Milk")
     add("1", "tbsp", name: "milk", date: "2026-10-06")
