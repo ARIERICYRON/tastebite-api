@@ -1,5 +1,11 @@
 # README
 
+## Demo-account safety
+
+Demo seeds run only in development or test and refuse to modify a populated database. Each seeded account receives an independent random password; no shared demo login is provided. Create your own local account for interactive testing.
+
+The `20261126000000_secure_seeded_demo_accounts` migration rotates credentials for the five original demo email identities and invalidates their existing sessions and password-reset links. It preserves users and their content. Production seeding is skipped. The `demo_accounts:secure` maintenance task can repeat the targeted rotation when explicitly needed; it reports only the number of accounts secured.
+
 This README would normally document whatever steps are necessary to get the
 application up and running.
 
