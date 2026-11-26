@@ -3,6 +3,7 @@ module RecipeSerialization
     {
       saved: current_user ? r.bookmarks.exists?(user_id: current_user.id) : false,
       provider: r.provider, provider_id: r.provider_id,
+      provider_url: r.provider_metadata["provider_url"], license_url: r.provider_metadata["license_url"],
       id: r.id, title: r.title, description: r.description,
       difficulty: r.difficulty, time_minutes: r.time_minutes,
       prep_minutes: r.prep_minutes, cook_minutes: r.cook_minutes,

@@ -64,9 +64,9 @@ Verified package example: at a manual price of $4 CAD per 500 g package, 300 g w
 
 The three-tab planner displays automatic package counts even before a manual price is entered, provided quantity and package units/sizes are compatible. Missing price still yields null purchase/use costs and an incomplete total. Service regression coverage verifies this independently of cost calculation.
 
-## TheMealDB provider recipes
+## Legacy TheMealDB provider recipes
 
-The Rails-only client uses `THEMEALDB_API_KEY`, defaulting to public test key `1` outside production. Routes under `/api/v1/discover` require authentication: `GET /catalogs`, `GET /recipes?q=&category=&cuisine=&ingredient=`, `GET /recipes/:provider_id` and `POST /recipes/:provider_id/import` (`save:false` imports without bookmarking). Search intersects separate V1 single-filter requests, with a 100-row bound per request. No paid V2 features are used. Open/read/write timeouts are 3/5/5 seconds, response bodies are bounded, and provider errors become 404/422/503 responses without exposing keys. Catalogs/search/details have 24-hour/5-minute/1-hour cache lifetimes when a cache store is configured.
+The Rails-only client uses `THEMEALDB_API_KEY`, defaulting to public test key `1` outside production. Routes under `/api/v1/discover` require authentication: `GET /catalogs?provider=themealdb`, `GET /recipes?provider=themealdb&q=&category=&cuisine=&ingredient=`, `GET /recipes/:provider_id` and `POST /recipes/:provider_id/import` (`save:false` imports without bookmarking). Search intersects separate V1 single-filter requests, with a 100-row bound per request. No paid V2 features are used. Open/read/write timeouts are 3/5/5 seconds, response bodies are bounded, and provider errors become 404/422/503 responses without exposing keys. Catalogs/search/details have 24-hour/5-minute/1-hour cache lifetimes when a cache store is configured.
 
 Apply `bundle exec rails db:migrate`. The additive migration stores provider identity/metadata, exact original measurements and calculation flags, and per-entry confirmed `base_servings`. A unique provider identity prevents duplicate snapshots. Provider recipes have no local author, are excluded from community discovery and cannot be edited/deleted through recipe endpoints. Bookmarks and meal planning use the existing data model. Imported snapshots stay stable to preserve planned quantities; details use the same snapshot. No remote images are copied to Cloudflare.
 
@@ -75,3 +75,25 @@ Provider planning requires positive confirmed base servings; planned servings de
 **Production release prerequisite:** obtain and record commercial-access confirmation from TheMealDB and configure an appropriate production key before setting `THEMEALDB_COMMERCIAL_ACCESS_CONFIRMED=true`. Production explicitly rejects development key `1`. Review the [official API documentation](https://www.themealdb.com/api.php) and [terms of use](https://www.themealdb.com/terms_of_use.php); no plan has been purchased. Keep keys out of frontend environment variables and Git. Deployment/storage settings remain unchanged.
 
 Run `bundle exec rspec`. Provider service/request specs cover transport timeouts, filters, original quantities, deduplicated immutable imports, confirmed scaling, unknown costs and user isolation. Browser tests may opt into `TASTEBITE_MEALDB_FIXTURE=1` only with `RAILS_ENV=test` and the isolated `tastebite_api_flow_test` database. `spec/browser_support/meal_db_fixture.rb` replaces upstream transport using a captured official recipe and cannot load outside test mode. Production and development still call the real provider.
+
+## Wikibooks starter catalog
+
+Discover reads 20 shared Wikibooks Cookbook recipes from the Rails database. The
+catalog was curated from Wikimedia's Action API and ships with the app in
+`db/data/wikibooks_recipes.json`. The production search, filter, save and meal
+planning flows use the database without any external API credentials or requests.
+The existing TheMealDB snapshots keep their original identifiers and links.
+The legacy search endpoints accept `provider=themealdb` explicitly.
+
+Apply `bundle exec rails db:migrate` before releasing the accompanying frontend.
+The additive migration installs the catalog without altering existing recipes,
+users or meals. To populate the catalog after a manual schema load, run
+`bundle exec rails runner 'WikibooksCatalog.install!'` against that database.
+The installer can be rerun and preserves existing snapshots.
+
+The adapted recipe text in the catalog is credited to Wikibooks Cookbook
+contributors and licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
+Each entry pins the source revision. TasteBite normalizes ingredient names and
+measurable amounts, selects a recipe variation where applicable, and adapts
+instructions. Unverified measures are shown and flagged in grocery lists.
+The catalog contains no imported images.

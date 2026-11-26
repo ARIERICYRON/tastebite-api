@@ -2,6 +2,7 @@ class MealPlanEntry < ApplicationRecord
   belongs_to :meal_plan
   belongs_to :recipe
   before_validation do
+    self.base_servings = recipe.servings if recipe&.provider == "wikibooks"
     if recipe&.provider_recipe?
       self.servings ||= base_servings
     elsif recipe && recipe.servings.to_i.positive?

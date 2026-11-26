@@ -94,9 +94,9 @@ RSpec.describe "TheMealDB discovery and import", type: :request do
   it "returns catalogs/search and rejects unauthenticated imports" do
     allow_any_instance_of(TheMealDb).to receive(:catalogs).and_return(categories: ["Vegetarian"], cuisines: ["Italian"], ingredients: ["Garlic"])
     allow_any_instance_of(TheMealDb).to receive(:search).and_return([detail.slice(:provider_id, :title)])
-    get "/api/v1/discover/catalogs", headers: auth
+    get "/api/v1/discover/catalogs", headers: auth, params: { provider: "themealdb" }
     expect(json["cuisines"]).to eq(["Italian"])
-    get "/api/v1/discover/recipes", headers: auth, params: { q: "Arrabiata" }
+    get "/api/v1/discover/recipes", headers: auth, params: { q: "Arrabiata", provider: "themealdb" }
     expect(response).to have_http_status(:ok)
     expect(json["results"].first["provider_id"]).to eq("52771")
     post "/api/v1/discover/recipes/52771/import", params: { save: true }, as: :json

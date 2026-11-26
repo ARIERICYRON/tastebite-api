@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_11_26_000000) do
+ActiveRecord::Schema[7.1].define(version: 2026_11_26_000100) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -187,7 +187,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_11_26_000000) do
     t.jsonb "provider_metadata", default: {}, null: false
     t.index ["provider", "provider_id"], name: "index_recipes_on_provider_and_provider_id", unique: true, where: "(provider IS NOT NULL)"
     t.index ["user_id"], name: "index_recipes_on_user_id"
-    t.check_constraint "provider IS NULL AND provider_id IS NULL AND user_id IS NOT NULL OR provider::text = 'themealdb'::text AND provider_id IS NOT NULL AND user_id IS NULL", name: "recipes_authorship_or_provider"
+    t.check_constraint "provider IS NULL AND provider_id IS NULL AND user_id IS NOT NULL OR provider IS NOT NULL AND (provider::text = ANY (ARRAY['themealdb'::character varying, 'wikibooks'::character varying]::text[])) AND provider_id IS NOT NULL AND user_id IS NULL", name: "recipes_authorship_or_provider"
   end
 
   create_table "shopping_items", force: :cascade do |t|

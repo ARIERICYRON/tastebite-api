@@ -1,0 +1,397 @@
+[
+  {
+    "page_id": 17844,
+    "revision_id": 4606890,
+    "title": "Oat Porridge",
+    "category": "Breakfast",
+    "cuisine": null,
+    "servings": 1,
+    "time_minutes": 15,
+    "ingredients": [
+      ["Rolled oats", "45 g"],
+      ["Water", "180 ml"],
+      ["Milk", "180 ml"]
+    ],
+    "instructions": "Bring the oats and water to a boil in a covered pan. Lower the heat and simmer gently, stirring regularly. After five minutes, stir in the milk and heat through."
+  },
+  {
+    "page_id": 13260,
+    "revision_id": 4523414,
+    "title": "Basic Scrambled Eggs",
+    "category": "Breakfast",
+    "cuisine": null,
+    "servings": 1,
+    "time_minutes": null,
+    "ingredients": [
+      ["Egg", "3"],
+      ["Milk", "2–3 tbsp (optional)", false],
+      ["Butter", "2 tbsp"],
+      ["Salt", "1/4 tsp"],
+      ["Black pepper", "1/8 tsp"]
+    ],
+    "instructions": "Beat the eggs with the salt and optional milk. Melt the butter in a skillet over medium heat and add the eggs. Stir to form curds until the eggs are set, then serve with black pepper."
+  },
+  {
+    "page_id": 9014,
+    "revision_id": 4518501,
+    "title": "Red Lentil Soup",
+    "category": "Soup",
+    "cuisine": null,
+    "servings": 4,
+    "time_minutes": null,
+    "ingredients": [
+      ["Olive oil", "1–2 tbsp", false],
+      ["Onion", "1"],
+      ["Carrot", "2"],
+      ["Garlic", "2 cloves"],
+      ["Dry red lentils", "1/2 lb"],
+      ["Water", "6 cups (or stock)", false],
+      ["Bay leaf", "1"]
+    ],
+    "instructions": "Rinse the lentils. Soften diced onion and carrots in olive oil, then stir in minced garlic. Add the lentils, bay leaf and water or stock. Simmer until the lentils are tender, about 20–30 minutes."
+  },
+  {
+    "page_id": 136779,
+    "revision_id": 4529118,
+    "title": "Chinese Rice Porridge (Congee)",
+    "category": "Breakfast",
+    "cuisine": "Chinese",
+    "servings": 4,
+    "time_minutes": null,
+    "ingredients": [
+      ["Round rice", "220 g"],
+      ["Water", "2.5 l"],
+      ["Light soy sauce", "To taste", false],
+      ["Sesame oil", "To taste", false],
+      ["White pepper", "To taste", false],
+      ["Green onion", "3"],
+      ["Cilantro", "4 tbsp"],
+      ["Sesame seeds", "2 tbsp"],
+      ["Ginger", "30 g"]
+    ],
+    "instructions": "Rinse and drain the rice. Bring it to a boil with the water, then simmer gently for about two hours until creamy. Season with soy sauce, sesame oil and white pepper. Top with chopped green onion, cilantro, toasted sesame seeds and sliced ginger."
+  },
+  {
+    "page_id": 236563,
+    "revision_id": 4518607,
+    "title": "Egyptian Lentil Stew",
+    "category": "Stew",
+    "cuisine": "Egyptian",
+    "servings": 4,
+    "time_minutes": null,
+    "ingredients": [
+      ["Onion", "2"],
+      ["Olive oil", "4 tbsp"],
+      ["Water", "8 cups", false],
+      ["Dry red lentils", "1/2 lb"],
+      ["Salt", "To taste (or soup mix)", false],
+      ["Ground cumin", "1 tsp"],
+      ["Ground coriander", "1 tsp"],
+      ["Lemon", "1"]
+    ],
+    "instructions": "Soften chopped onions slowly in the olive oil. Stir in the water, lentils, cumin, coriander and salt or soup mix. Simmer for about an hour, stirring regularly. Stir in the lemon juice off the heat before serving."
+  },
+  {
+    "page_id": 72799,
+    "revision_id": 4630331,
+    "title": "Coleslaw I",
+    "category": "Salad",
+    "cuisine": null,
+    "servings": 6,
+    "time_minutes": null,
+    "ingredients": [
+      ["Mayonnaise", "4 tbsp"],
+      ["Cider vinegar", "50–100 ml (optional)", false],
+      ["White cabbage", "1"],
+      ["Red onion", "1"]
+    ],
+    "instructions": "Shred the cabbage and slice the onion thinly. Toss them with the mayonnaise, whisking the optional vinegar into the dressing first. Chill for at least 20 minutes."
+  },
+  {
+    "page_id": 479138,
+    "revision_id": 4571234,
+    "title": "Creamy Tomato and Bean Soup",
+    "category": "Soup",
+    "cuisine": null,
+    "servings": 8,
+    "time_minutes": null,
+    "ingredients": [
+      ["Olive oil", "1 tbsp"],
+      ["Yellow onion", "1"],
+      ["Salt", "To taste", false],
+      ["Black pepper", "To taste", false],
+      ["White beans", "425 g"],
+      ["Garlic", "5–10 cloves", false],
+      ["Dried oregano", "1/2 tsp"],
+      ["Fresh sage", "2 leaves", false],
+      ["Crushed tomatoes", "850 g"],
+      ["Tomato paste", "170 g"],
+      ["Crushed red pepper", "1 pinch", false],
+      ["Water", "237 ml"],
+      ["Cream cheese", "225 g"],
+      ["Basil", "10–20 leaves", false]
+    ],
+    "instructions": "Soften the chopped onion in oil and season it. Add beans with their liquid, garlic, oregano and sage and simmer for a few minutes. Stir in tomatoes, paste, red pepper and water and simmer for 5–10 minutes. Off the heat, stir in cream cheese, then purée with an immersion blender. Heat gently for another 10–15 minutes and finish with basil."
+  },
+  {
+    "page_id": 7277,
+    "revision_id": 4630849,
+    "title": "Chapati",
+    "category": "Bread",
+    "cuisine": "Indian",
+    "servings": 8,
+    "time_minutes": null,
+    "ingredients": [
+      ["Whole wheat flour", "3 cups", false],
+      ["Salt", "About 1 tsp", false],
+      ["Water", "About 1 1/2 cups", false],
+      ["Ghee", "Optional, for brushing", false]
+    ],
+    "instructions": "Knead flour and salt with enough warm water to make a smooth dough. Cover and rest for at least five minutes. Divide into eight balls, roll into thin rounds and cook in a hot dry skillet until browned on both sides. Brush with ghee if desired."
+  },
+  {
+    "page_id": 19073,
+    "revision_id": 4494435,
+    "title": "Rice Pilaf",
+    "category": "Side dish",
+    "cuisine": null,
+    "servings": 8,
+    "time_minutes": null,
+    "ingredients": [
+      ["Butter", "6 tbsp"],
+      ["Long-grain rice", "2 cups", false],
+      ["Chicken broth", "4 cups", false],
+      ["Salt", "1/4 tsp"],
+      ["Garlic", "4 cloves"],
+      ["Onion", "1"],
+      ["Carrot", "2"]
+    ],
+    "instructions": "For the vegetable variation, soften finely chopped onion, carrot and garlic in butter. Stir in the rice to coat it, then add hot broth and salt. Cover and cook on low heat until the liquid is absorbed, about 25 minutes. Fluff and rest for 15–20 minutes."
+  },
+  {
+    "page_id": 33064,
+    "revision_id": 4512549,
+    "title": "Naan",
+    "category": "Bread",
+    "cuisine": "Indian",
+    "servings": 4,
+    "time_minutes": null,
+    "ingredients": [
+      ["All-purpose flour", "450 g"],
+      ["Yogurt", "240 ml"],
+      ["Baking soda", "1 tsp"],
+      ["Salt", "2 tsp"],
+      ["Water", "About 180 ml", false],
+      ["Butter", "For brushing", false]
+    ],
+    "instructions": "Knead the flour, yogurt, baking soda and salt with enough water to bring the dough together. Cover with a damp cloth and rest for two to three hours. Divide and roll into rounds or ovals, moisten the tops and bake in a very hot preheated oven until puffed, about 4–5 minutes. Brush with butter."
+  },
+  {
+    "page_id": 124457,
+    "revision_id": 4525537,
+    "title": "Risotto (Basic)",
+    "category": "Side dish",
+    "cuisine": "Italian",
+    "servings": 4,
+    "time_minutes": null,
+    "ingredients": [
+      ["Risotto rice", "400 g"],
+      ["Onion", "1"],
+      ["Dry white wine", "1 glass", false],
+      ["Butter", "25 g"],
+      ["Stock", "About 1 l", false],
+      ["Salt", "To taste", false],
+      ["Black pepper", "To taste", false]
+    ],
+    "instructions": "Soften finely chopped onion in a little butter without browning. Stir in the rice until translucent around the edges, then add wine. When the wine is nearly absorbed, add warm stock a little at a time, stirring as the rice cooks. When tender with a slight bite, rest briefly, stir in the remaining butter and season."
+  },
+  {
+    "page_id": 136629,
+    "revision_id": 4599153,
+    "title": "Saffron Rice",
+    "category": "Side dish",
+    "cuisine": "Indian",
+    "servings": 4,
+    "time_minutes": null,
+    "ingredients": [
+      ["Long-grain rice", "1 cup", false],
+      ["Saffron", "1/2 tsp"],
+      ["Chicken stock", "2 cups", false],
+      ["Cooking oil", "6 tbsp"],
+      ["Celery", "1/2 cup", false],
+      ["Cinnamon stick", "1 inch", false],
+      ["Whole cloves", "2"],
+      ["Brown sugar", "1 1/2 tbsp"],
+      ["Molasses", "1 1/2 tbsp"],
+      ["Salt", "1 tsp"],
+      ["Ground coriander", "1 pinch", false],
+      ["Ground cardamom", "1 pinch", false]
+    ],
+    "instructions": "Rinse the rice and steep the saffron in a little hot water. Heat the oil with the cinnamon and cloves, then stir in minced celery and rice. Add stock, sugar, molasses, salt and ground spices. Bring to a boil, lower the heat and stir in the saffron and its water. Cover and simmer until the rice is tender, about 25 minutes."
+  },
+  {
+    "page_id": 42657,
+    "revision_id": 4614347,
+    "title": "Chicken Tikka Masala",
+    "category": "Main dish",
+    "cuisine": null,
+    "servings": 4,
+    "time_minutes": null,
+    "ingredients": [
+      ["Cooked chicken tikka", "675 g"],
+      ["Mustard seed oil", "2 tbsp"],
+      ["Garlic", "4 cloves"],
+      ["Onion", "200 g"],
+      ["Plum tomatoes", "28 oz"],
+      ["Green chile", "1–4", false],
+      ["Cilantro", "2 tbsp"],
+      ["Single cream", "50 ml or 4 fl oz (conflicting source amounts)", false],
+      ["Malt vinegar", "1 tbsp"],
+      ["Curry paste", "2 tbsp"],
+      ["Tandoori masala paste", "2 tbsp"],
+      ["Tomato paste", "1 tbsp"],
+      ["Garam masala", "1 tbsp"]
+    ],
+    "instructions": "Fry chopped garlic and onion in the oil, then stir in the curry and tandoori pastes. Add cooked chicken tikka and stir-fry briefly. Add chopped tomatoes, vinegar, tomato paste and chiles and simmer for five minutes. Stir in the cream, garam masala and cilantro and simmer briefly."
+  },
+  {
+    "page_id": 198784,
+    "revision_id": 4517691,
+    "title": "Pineapple Fried Rice",
+    "category": "Main dish",
+    "cuisine": null,
+    "servings": 8,
+    "time_minutes": null,
+    "ingredients": [
+      ["Sunflower oil", "5 tbsp"],
+      ["Garlic", "3 cloves"],
+      ["Red onion", "3"],
+      ["Red chile", "2"],
+      ["Egg", "2"],
+      ["Cooked rice", "300 g"],
+      ["Bok choy", "2"],
+      ["Pineapple", "200 g"],
+      ["Black pepper", "2 tbsp"],
+      ["Salt", "1 tbsp"]
+    ],
+    "instructions": "Stir-fry chopped garlic, red onion and chile in sunflower oil for two minutes. Add the beaten eggs and stir until set. Toss in the cooked rice, chopped bok choy and diced pineapple and stir-fry until hot. Season and serve."
+  },
+  {
+    "page_id": 96176,
+    "revision_id": 4523344,
+    "title": "Cornbread I",
+    "category": "Bread",
+    "cuisine": "American",
+    "servings": 8,
+    "time_minutes": null,
+    "ingredients": [
+      ["Cornmeal", "140 g"],
+      ["All-purpose flour", "140 g"],
+      ["Baking powder", "4 tsp"],
+      ["Salt", "1/2 tsp"],
+      ["Milk", "250 ml"],
+      ["Egg", "1"],
+      ["Shortening", "60 g"],
+      ["Granulated sugar", "55 g"]
+    ],
+    "instructions": "Heat the oven to 425°F and grease an 8-inch baking pan. Combine the dry ingredients, then beat in the egg, milk and melted shortening. Pour into the pan and bake for roughly 20–25 minutes, until a toothpick comes out clean."
+  },
+  {
+    "page_id": 27270,
+    "revision_id": 4518395,
+    "title": "Easy Wedding Soup",
+    "category": "Soup",
+    "cuisine": null,
+    "servings": 8,
+    "time_minutes": null,
+    "ingredients": [
+      ["Chicken broth", "6 cups", false],
+      ["Water", "2 cups", false],
+      ["Frozen spinach", "10 oz"],
+      ["Cooked chicken sausage", "12 oz"],
+      ["Acini di pepe", "3 tbsp"]
+    ],
+    "instructions": "Bring the broth and water to a boil. Add frozen spinach, chopped cooked sausage and the pasta. Once the soup returns to a boil, cook for about 10 minutes until the pasta is tender."
+  },
+  {
+    "page_id": 109338,
+    "revision_id": 4610476,
+    "title": "Mushroom Soup",
+    "category": "Soup",
+    "cuisine": null,
+    "servings": 12,
+    "time_minutes": null,
+    "ingredients": [
+      ["Butter", "1/2 lb"],
+      ["All-purpose flour", "1 cup", false],
+      ["Beef stock", "12 cups", false],
+      ["Olive oil", "6 tbsp"],
+      ["Portobello mushrooms", "4 cups", false],
+      ["Shiitake mushrooms", "4 cups", false],
+      ["Button mushrooms", "4 cups", false],
+      ["Sherry", "1/2 cup", false]
+    ],
+    "instructions": "Melt half the butter and stir in half the flour to make a pale roux. Gradually add the stock and bring to a simmer. In a second pan, sauté the sliced mushrooms with the remaining butter and oil, then toss with the remaining flour off the heat. Stir the mushrooms and sherry into the soup and simmer for about 10 minutes."
+  },
+  {
+    "page_id": 8350,
+    "revision_id": 4587252,
+    "title": "Chocolate Mousse",
+    "category": "Dessert",
+    "cuisine": null,
+    "servings": 4,
+    "time_minutes": null,
+    "ingredients": [
+      ["Bittersweet chocolate", "200 g"],
+      ["Pasteurized eggs", "3"],
+      ["Heavy cream", "250 ml"],
+      ["Granulated sugar", "40 g"],
+      ["Water", "30 ml"]
+    ],
+    "instructions": "Melt the chocolate gently. Separate the pasteurized eggs and whip the whites and cream in separate bowls. Beat the yolks with warm water and sugar until pale and thick, then stir in the melted chocolate. Fold in the whites in batches, followed by the cream. Portion and chill for four to six hours."
+  },
+  {
+    "page_id": 103131,
+    "revision_id": 4517965,
+    "title": "Pumpkin Risotto",
+    "category": "Main dish",
+    "cuisine": "Italian",
+    "servings": 6,
+    "time_minutes": null,
+    "ingredients": [
+      ["Pumpkin", "650 g"],
+      ["Salt", "1/2 tsp"],
+      ["Black pepper", "6 grinds", false],
+      ["Fresh marjoram", "1 bunch", false],
+      ["Garlic", "2 cloves"],
+      ["Olive oil", "5 tbsp"],
+      ["Chicken stock", "1 quart (source gives conflicting metric equivalent)", false],
+      ["Unsalted butter", "10 tbsp"],
+      ["Red onion", "1"],
+      ["Risotto rice", "360 g"],
+      ["Dry white vermouth", "5 tbsp"],
+      ["Parmesan", "360 g"]
+    ],
+    "instructions": "Seed and cut the pumpkin. Roast it covered with oil, marjoram, garlic and seasoning until tender, then dice the flesh and reserve its juices. Soften diced onion in some butter and oil, coat the rice in the fat and let it absorb the vermouth. Gradually stir in warm stock until the rice is tender. Finish with the remaining butter, pumpkin, juices and Parmesan."
+  },
+  {
+    "page_id": 216017,
+    "revision_id": 4587408,
+    "title": "Bread Pudding",
+    "category": "Dessert",
+    "cuisine": null,
+    "servings": 12,
+    "time_minutes": null,
+    "ingredients": [
+      ["Bread", "6 slices", false],
+      ["Butter", "30 g"],
+      ["Raisins", "80 g"],
+      ["Egg", "4"],
+      ["Granulated sugar", "150 g"],
+      ["Milk", "475 ml"],
+      ["Ground cinnamon", "2 g"],
+      ["Vanilla extract", "5 ml"]
+    ],
+    "instructions": "Heat the oven to 350°F. Tear the bread into a baking dish with the raisins and drizzle with melted butter. Whisk eggs, sugar, milk, cinnamon and vanilla, then pour over the bread and press it down to soak. Bake for about 45 minutes and let cool before serving."
+  }
+]
