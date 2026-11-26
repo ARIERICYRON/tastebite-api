@@ -1,7 +1,9 @@
 class ApplicationController < ActionController::API
   # Create a login token for a user
-  def encode_token(user_id)
-    JWT.encode({ user_id: user_id, version: User.find(user_id).token_version, exp: 24.hours.from_now.to_i }, Rails.application.secret_key_base, "HS256")
+  def encode_token(user)
+    # Keep the version from the authenticated snapshot so a concurrent rotation
+    # cannot give an old-password login a new, valid session version.
+    JWT.encode({ user_id: user.id, version: user.token_version, exp: 24.hours.from_now.to_i }, Rails.application.secret_key_base, "HS256")
   end
 
   # Figure out who is logged in from their token

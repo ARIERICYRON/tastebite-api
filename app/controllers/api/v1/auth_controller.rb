@@ -6,7 +6,7 @@ module Api
       def signup
         user = User.new(user_params)
         if user.save
-          render json: { token: encode_token(user.id), user: user_json(user) }, status: :created
+          render json: { token: encode_token(user), user: user_json(user) }, status: :created
         else
           render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
         end
@@ -15,7 +15,7 @@ module Api
       def login
         user = User.where("LOWER(email) = ?", params[:email].to_s.strip.downcase).first
         if user&.authenticate(params[:password])
-          render json: { token: encode_token(user.id), user: user_json(user) }
+          render json: { token: encode_token(user), user: user_json(user) }
         else
           render json: { error: "Invalid email or password" }, status: :unauthorized
         end
